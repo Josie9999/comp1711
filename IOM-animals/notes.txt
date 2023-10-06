@@ -1,0 +1,93 @@
+    1  unzip week1data.zip
+    2  rm week1data.zip
+    3  cat data1.txt
+    4  cat data2.txt
+    5  cat data1.txt data2.txt
+    6  ls
+    7  cat *.txt
+    8  grep "Beatles" *.txt
+    9  grep "David Bowie" *.txt
+   10  grep "Rihanna" *.txt
+   11  grep "Beatles" *.txt | cut -d "," -f 3
+   12  grep "Beatles" *.txt | cut -d "," -f 3,2
+   13  grep "Beatles" *.txt | cut -d "," -f 3 | sort
+   14  grep "Beatles" *.txt | cut -d "," 
+   15  grep "Beatles" *.txt | cut -d "," -f 3 | sort > "beatles.txt"
+   16  cat b*.txt
+   17  cat data*.txt | head -n 17
+   18  cat data*.txt | head -n 17 | tail -n 1
+   19  cat data*.txt | head -n 40 | tail -n 1
+   20  history
+   21  history > notes.txt
+   22  cat n*.txt
+   23  cat data*.txt | head -42 | tail -n 1
+   24  grep "Eminem" *.txt
+   25  grep "1992" *.txt
+   26  grep "Pink Floyd" *.txt | cut -d "," -f 3
+   27  grep "Pink Floyd" *.txt | cut -d "," -f 4
+   28  grep "1970" *.txt | cut -d "," -f 2
+   29  grep "200" *.txt > naughties.txt 
+   30  cat n*.txt
+   31  cat na*.txt
+   32* grep data*.txt | cut -d "," -f 4 | sort | head -42 | tail -n 1  
+   33  grep data*.txt | cut -d "," -f 4 | sort 
+   34  grep data*.txt | cut -d "," -f 3 | sort 
+   35  grep data*.txt 
+   36  cat data*.txt
+   37  cat data*.txt | cut -d "," -f1
+   38  cat data*.txt | cut -d "," -f2
+   39  cat data*.txt | cut -d "," -f3
+   40  cat data*.txt | cut -d "," -f4
+   41  cat data*.txt | cut -d "," -f4 | sort
+   42  cat data*.txt 
+   43  cat data*.txt  | sort
+   44  cat data*.txt  | sort -d "." -f 4
+   45  cat data*.txt  | sort -d "." -f4
+   46  cat data*.txt  | sort -d "," -f4
+   47  man sort
+   48  wget https://github.com/callaghanmt/shell-training/raw/master/shell.tar.gz
+   49  tar -zxvf shell.tar.gz
+   50  mkdir session1
+   51  mkdir work
+   52  cd work
+   53  mkdir input_data
+   54  cd input_data
+   55  cd work
+   56  cd ..
+   57  mkdir results
+   58  mkdir program
+   59  ls
+   60  touch input.txt
+   61  ls
+   62  echo "Text" > input.txt
+   63  cat i*.txt
+   64  man mv
+   65  mv input.txt work/input_data control01.txt
+   66  mv input.txt control01.txt work/input_data
+   67  mv input.txt input_data/control01.txt
+   68  ls input_data
+   69  ls
+   70  rm -f dir
+   71  rm -rf dir
+   72  rm -rf dir work
+   73  cd ..
+   74  rm -rf dir work
+   75  history > commands.txt
+   76  cat c*.txt
+   77  cd IOM-animals
+   78  cat birds.txt | cut -d , -f 2
+   79  cat birds.txt | cut -d , -f 2 | sort
+   80  grep "newt" amp*.txt | cut -d , -f 2
+   81  grep "common" *.txt | sort
+   82  cat *.txt | sort | head -n 50 | tail -n 1
+   83  rm commands.txt
+   84  history > notes.txt
+   85  cat mam*.txt | head -n -10 | sort
+   86  cat mam*.txt | head -n -10 
+   87  mam*.txt
+   88  cat mam*.txt
+   89  cat mam*.txt | head -n 10
+   90  grep "bat" *.txt | wc -l
+   91  cat *.txt | wc -l
+   92  rm notes.txt
+   93  history > notes.txt

@@ -16,3 +16,5 @@ git flow:
 git add README.md
 git commit -m "commit message"
 git push
+
+git add . -adds all updates from all files
