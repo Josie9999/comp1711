@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "FitnessDataStruct.h"
+#define buffer_size 100
 
 // Struct moved to header file
 
@@ -44,19 +45,24 @@ void tokeniseRecord(const char *input, const char *delimiter,
 int main() {
     int run = 0;
     char choice;
+    char line[buffer_size];
+    char filename[buffer_size];
     while (run == 0){
         printf("Menu Options:\nA: Specify the filename to be imported\nB: Display the total number of records in the file\nC: Find the date and time of the timeslot with the fewest steps\nD: Find the date and time of the timeslot with the largest number of steps\nE: Find the mean step count of all the records in the file\nF: Find the longest continuous period where the step count is above 500 steps\nQ: Quit\n");
         printf("Enter choice: ");
         scanf("%c", &choice);
 
+    
+
         switch(choice){
             case 'A': 
-                char *filename;
-                printf("Input filename: ")
-                scanf("%c", filename);
-                FILE *file = fopen(filename, "r");
-                if (file == NULL){
-                    perror("Error: could not open file\n");
+                printf("Input filename: ");
+                fgets(line, buffer_size, stdin);
+                sscanf(line, " %s ", filename);
+                FILE *input = fopen(filename, "r");
+                if (!input)
+                {
+                    printf("Error: File could not be opened\n");
                     return 1;
                 }
             break;
