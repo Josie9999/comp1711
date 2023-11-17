@@ -43,10 +43,19 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
 // Complete the main function
 int main() {
+    FITNESS_DATA data[100];
     int run = 0;
     char choice;
+    FILE *file;
+    char filename[100];
+    int total = 0;
     char line[buffer_size];
-    char filename[buffer_size];
+    char date[200];
+    char time[200];
+    char steps[200];
+
+
+
     while (run == 0){
         printf("Menu Options:\nA: Specify the filename to be imported\nB: Display the total number of records in the file\nC: Find the date and time of the timeslot with the fewest steps\nD: Find the date and time of the timeslot with the largest number of steps\nE: Find the mean step count of all the records in the file\nF: Find the longest continuous period where the step count is above 500 steps\nQ: Quit\n");
         printf("Enter choice: ");
@@ -56,16 +65,28 @@ int main() {
 
         switch(choice){
             case 'A': 
+            case 'a':
                 printf("Input filename: ");
-                fgets(line, buffer_size, stdin);
-                sscanf(line, " %s ", filename);
-                FILE *input = fopen(filename, "r");
-                if (!input)
+                scanf("%s", filename);
+                file = fopen(filename, "r");
+                if (file == NULL)
                 {
                     printf("Error: File could not be opened\n");
                     return 1;
                 }
             break;
+
+            case 'B':
+            case 'b':
+                while (fgets(line, buffer_size, file)){
+                    // adds the individual items to the array
+                    tokeniseRecord(line,",",date,time,steps);
+                    strcpy(data[total].date, date);
+                    strcpy(data[total].time, time);
+                    data[total].steps = atoi(steps);
+                    total++;
+                }
+                printf("Number of records in file: %d\n", total);
     
 
             case 'Q': run = 1;
