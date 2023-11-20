@@ -62,7 +62,7 @@ int main() {
     while (run == 0){
         printf("Menu Options:\nA: Specify the filename to be imported\nB: Display the total number of records in the file\nC: Find the date and time of the timeslot with the fewest steps\nD: Find the date and time of the timeslot with the largest number of steps\nE: Find the mean step count of all the records in the file\nF: Find the longest continuous period where the step count is above 500 steps\nQ: Quit\n");
         printf("Enter choice: ");
-        scanf("%c", &choice);
+        scanf(" %c", &choice);
         
         switch(choice){
             case 'A': 
