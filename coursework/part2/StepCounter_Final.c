@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "FitnessDataStruct.h"
-#define buffer_size 100
+#define buffer_size 300
+#include <math.h>
 
 // Struct moved to header file
 
@@ -43,16 +44,18 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
 // Complete the main function
 int main() {
-    FITNESS_DATA data[100];
+    FITNESS_DATA data[200];
     int run = 0;
     char choice;
     FILE *file;
-    char filename[100];
+    char filename[200];
     int total = 0;
     char line[buffer_size];
     char date[200];
     char time[200];
     char steps[200];
+    int min = 100, max = 0;
+    float num = 0, N, sum = 0, mean;
 
 
 
@@ -60,9 +63,7 @@ int main() {
         printf("Menu Options:\nA: Specify the filename to be imported\nB: Display the total number of records in the file\nC: Find the date and time of the timeslot with the fewest steps\nD: Find the date and time of the timeslot with the largest number of steps\nE: Find the mean step count of all the records in the file\nF: Find the longest continuous period where the step count is above 500 steps\nQ: Quit\n");
         printf("Enter choice: ");
         scanf("%c", &choice);
-
-    
-
+        
         switch(choice){
             case 'A': 
             case 'a':
@@ -74,27 +75,45 @@ int main() {
                     printf("Error: File could not be opened\n");
                     return 1;
                 }
-            break;
-
-            case 'B':
-            case 'b':
                 while (fgets(line, buffer_size, file)){
                     // adds the individual items to the array
                     tokeniseRecord(line,",",date,time,steps);
                     strcpy(data[total].date, date);
                     strcpy(data[total].time, time);
                     data[total].steps = atoi(steps);
+                    if (atoi(steps) < min){
+                        min = atoi(steps);
+                    }
+                    if (atoi(steps) > max){
+                        max = atoi(steps);
+                    }
                     total++;
                 }
-                printf("Number of records in file: %d\n", total);
-    
-
-            case 'Q': run = 1;
             break;
 
-            default: printf("Hello");
+            case 'B':
+            case 'b':
+                printf("Number of records in file: %d\n", total);
+            break;
+
+            case 'C':
+            case 'c':
+                printf("Fewest steps: %d\n", min);
+            break;
+
+            case 'D':
+            case 'd':
+                printf("Largest steps: %d\n", max);
+            break;
+
+            case 'Q':
+            case 'q': run = 1;
+            break;
+
+            default: printf("Hello\n");
             break;
         }
+
 
         }
         return 0;
