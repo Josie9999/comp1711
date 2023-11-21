@@ -55,8 +55,12 @@ int main() {
     char time[200];
     char steps[200];
     int min = 100, max = 0;
-    float num = 0, N, sum = 0, mean;
-
+    char min_date, max_date, min_time, max_time;
+    int counter = 0;
+    int mean;
+    int total_value;
+    int inrow = 0;
+    int maxrow = 0;
 
 
     while (run == 0){
@@ -81,14 +85,20 @@ int main() {
                     strcpy(data[total].date, date);
                     strcpy(data[total].time, time);
                     data[total].steps = atoi(steps);
-                    if (atoi(steps) < min){
-                        min = atoi(steps);
-                    }
-                    if (atoi(steps) > max){
-                        max = atoi(steps);
-                    }
+
+                    total_value += data[total].steps;
                     total++;
                 }
+                int min = data[0].steps;
+                char *min_date = data[0].date;
+                char *min_time = data[0].time;
+                int max = data[0].steps;
+                char *max_date = data[0].date;
+                char *max_time = data[0].time;
+                char *start_date = data[0].date;
+                char *start_time = data[0].time;
+                char *end_date = data[0].date;
+                char *end_time = data[0].time;
             break;
 
             case 'B':
@@ -98,12 +108,63 @@ int main() {
 
             case 'C':
             case 'c':
-                printf("Fewest steps: %d\n", min);
+                for (counter = 0; counter < total; counter++){
+                    if (data[counter].steps < min){
+                        min = data[counter].steps;
+                        min_date = data[counter].date;
+                        min_time = data[counter].time;
+                    }
+                    counter++;
+                }
+
+                printf("Fewest steps: %s %s\n", min_date, min_time);
             break;
 
             case 'D':
             case 'd':
-                printf("Largest steps: %d\n", max);
+                for (counter = 0; counter < total; counter++){
+                    if (data[counter].steps > max){
+                        max = data[counter].steps;
+                        max_date = data[counter].date;
+                        max_time = data[counter].time;
+                    }
+                    counter++;
+                }
+
+                printf("Largest steps: %s %s\n", max_date, max_time);
+            break;
+
+            case 'E':
+            case 'e':
+                mean = total_value / total;
+                printf("Mean step count: %d\n", mean);
+            break;
+
+            case 'F':
+            case 'f':
+                for (counter = 0; counter < total; counter++){
+                    if (data[counter].steps >= 500){
+                        if (inrow > maxrow || maxrow == 0 ){
+                        inrow += 1;
+                        start_date = data[counter].date;
+                        start_time = data[counter].time;
+
+                    }
+                    }
+                    if (data[counter].steps < 500){
+                        if (inrow > maxrow){
+                            maxrow = inrow;
+                            end_date = data[counter].date;
+                            end_time = data[counter].time;
+                        }
+                        inrow = 0;
+                    }
+                    counter++;
+                }
+
+                printf("%d", maxrow);
+                printf("Longest period start: %s %s\n", start_date, start_time);
+                printf("Longest period end: %s %s\n", end_date, end_time);
             break;
 
             case 'Q':
