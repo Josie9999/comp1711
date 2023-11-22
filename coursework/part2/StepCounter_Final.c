@@ -79,6 +79,7 @@ int main() {
                     printf("Error: File could not be opened\n");
                     return 1;
                 }
+                printf("File successfully loaded\n");
                 while (fgets(line, buffer_size, file)){
                     // adds the individual items to the array
                     tokeniseRecord(line,",",date,time,steps);
@@ -141,10 +142,10 @@ int main() {
             case 'F':
             case 'f':
                 for (counter = 0; counter < total; counter++){
-                    if (data[counter].steps >= 500){
+                    if (data[counter].steps > 500){
                         inrow += 1;
                     }
-                    if (data[counter].steps < 500){
+                    if (data[counter].steps <= 500){
                         if (inrow >= maxrow){
                         start_date = data[counter - inrow].date;
                         start_time = data[counter - inrow].time;
@@ -165,7 +166,7 @@ int main() {
             case 'q': run = 1;
             break;
 
-            default: printf("Error\n");
+            default: printf("Invalid choice. Try again.\n");
             break;
         }
 
