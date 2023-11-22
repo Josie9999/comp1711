@@ -114,7 +114,6 @@ int main() {
                         min_date = data[counter].date;
                         min_time = data[counter].time;
                     }
-                    counter++;
                 }
 
                 printf("Fewest steps: %s %s\n", min_date, min_time);
@@ -128,7 +127,6 @@ int main() {
                         max_date = data[counter].date;
                         max_time = data[counter].time;
                     }
-                    counter++;
                 }
 
                 printf("Largest steps: %s %s\n", max_date, max_time);
@@ -144,25 +142,21 @@ int main() {
             case 'f':
                 for (counter = 0; counter < total; counter++){
                     if (data[counter].steps >= 500){
-                        if (inrow > maxrow || maxrow == 0 ){
                         inrow += 1;
-                        start_date = data[counter].date;
-                        start_time = data[counter].time;
-
-                    }
                     }
                     if (data[counter].steps < 500){
+                        if (inrow >= maxrow){
+                        start_date = data[counter - inrow].date;
+                        start_time = data[counter - inrow].time;
+                        }
                         if (inrow > maxrow){
                             maxrow = inrow;
-                            end_date = data[counter].date;
-                            end_time = data[counter].time;
+                            end_date = data[counter - 1].date;
+                            end_time = data[counter - 1].time;
                         }
                         inrow = 0;
                     }
-                    counter++;
                 }
-
-                printf("%d", maxrow);
                 printf("Longest period start: %s %s\n", start_date, start_time);
                 printf("Longest period end: %s %s\n", end_date, end_time);
             break;
@@ -171,7 +165,7 @@ int main() {
             case 'q': run = 1;
             break;
 
-            default: printf("Hello\n");
+            default: printf("Error\n");
             break;
         }
 
