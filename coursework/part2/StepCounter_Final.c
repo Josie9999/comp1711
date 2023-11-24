@@ -22,6 +22,7 @@
     char min_date, max_date, min_time, max_time;
     int counter = 0;
     int mean;
+    int rounding;
     int total_value;
     int inrow = 0;
     int maxrow = 0;
@@ -145,9 +146,9 @@ int main() {
             case 'e':
                 // Calculates the mean
                 mean = total_value / total;
-                round = total_value % total;
-                if (round >= (len/2)){
-                    mean++
+                rounding = total_value % total;
+                if (rounding >= (total/2)){
+                    mean++;
                 }
                 printf("Mean step count: %d\n", mean);
                 file = fopen(filename, "r");
