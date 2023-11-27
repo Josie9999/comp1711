@@ -84,8 +84,12 @@ int main() {
     for (i = 0; i < total; ++i){
         printf("%d\n", data[i].steps);
     }
+    fclose(file);
 
-    
+    FILE *fp;
+    char newFile[200];
+    strcat(newFile,".tsv");
+    fp = fopen(newFile, "w");
 
     return 0;
 }
