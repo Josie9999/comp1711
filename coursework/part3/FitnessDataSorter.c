@@ -81,15 +81,20 @@ int main() {
         }
     }
     
-    for (i = 0; i < total; ++i){
-        printf("%d\n", data[i].steps);
-    }
+    //for (i = 0; i < total; ++i){
+    //    printf("%d\n", data[i].steps);
+    //}
+    char *newFile;
+    newFile = strcat(filename,".tsv");
     fclose(file);
 
     FILE *fp;
-    char newFile[200];
-    strcat(newFile,".tsv");
-    fp = fopen(newFile, "w");
-
+    //char newFile[200];
+    //strcat(filename,".tsv");
+    fp = fopen(newFile, "w+");
+    for (i = 0; i < total; ++i){
+        fprintf(fp, "%s %s %d\n", data[i].date, data[i].time, data[i].steps);
+    }
+    fclose(fp);
     return 0;
 }
