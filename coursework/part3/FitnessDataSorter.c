@@ -19,36 +19,47 @@ char date[200];
 char time[200];
 char steps[200];
 int total = 0;
-int i, j, temp;
+char i, j;
+FitnessData temp;
+
 
 // Function to tokenize a record
-// This is your helper function. Do not change it in any way.
 // Inputs: character array representing a row; the delimiter character
 // Ouputs: date character array; time character array; steps character array
-void tokeniseRecord(const char *input, const char *delimiter,
+int tokeniseRecord(const char *input, const char *delimiter,
                     char *date, char *time, char *steps) {
     // Create a copy of the input string as strtok modifies the string
     char *inputCopy = strdup(input);
     
     // Tokenize the copied string
     char *token = strtok(inputCopy, delimiter);
-    if (token != NULL) {        strcpy(date, token);
+    if (token != NULL) {        
+        strcpy(date, token);
+    }
+    else{
+        return 1;
     }
     
     token = strtok(NULL, delimiter);
     if (token != NULL) {
         strcpy(time, token);
     }
+    else{
+        return 1;
+    }
     
     token = strtok(NULL, delimiter);
-    if (token != NULL) {
+    if (token != NULL && (token[0] > 47 && token[0] < 58)){
         strcpy(steps, token);
+    }
+    else{
+        return 1;
     }
     
     // Free the duplicated string
     free(inputCopy);
 
-                    }
+    }
 
 
 int main() {
@@ -61,40 +72,48 @@ int main() {
         printf("Error: invalid file\n");
         return 1;
     }
-    printf("File successfully loaded\n");
-    while (fgets(line, buffer_size, file)){
+
+
+    while (fgets(line, buffer_size, file)!=NULL){
         // adds the individual items to the array
-        tokeniseRecord(line,",",date,time,steps);
+        if (tokeniseRecord(line,",",date,time,steps) == 1){
+            printf("Error: invalid file\n");
+            return 1;
+        }
         strcpy(data[total].date, date);
+        if (data[i].date == ""){
+            return 1;
+        }
         strcpy(data[total].time, time);
         data[total].steps = atoi(steps);
         total++;
     }
 
+    // orders the steps into decending order
     for (i = 0; i < total; ++i){
         for (j = i + 1; j < total; ++j){
             if (data[i].steps < data[j].steps){
-                temp = data[i].steps;
-                data[i].steps = data[j].steps;
-                data[j].steps = temp;
+                temp = data[i];
+                data[i] = data[j];
+                data[j] = temp;
             }
         }
     }
     
-    //for (i = 0; i < total; ++i){
-    //    printf("%d\n", data[i].steps);
-    //}
+
+    // gives the variable newFile the value of the filename and adds .tsv
     char *newFile;
     newFile = strcat(filename,".tsv");
     fclose(file);
 
+    // opens the new file 
     FILE *fp;
-    //char newFile[200];
-    //strcat(filename,".tsv");
     fp = fopen(newFile, "w+");
+    // adds the value of the date, time ands 
     for (i = 0; i < total; ++i){
-        fprintf(fp, "%s %s %d\n", data[i].date, data[i].time, data[i].steps);
+        fprintf(fp, "%s\t%s\t%d\n", data[i].date, data[i].time, data[i].steps);
     }
+    printf("Data sorted and written to %s\n", newFile);
     fclose(fp);
     return 0;
 }
